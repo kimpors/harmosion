@@ -8,23 +8,27 @@
   </head>
   <body>
     <header>
-      <h1>Harmosion</h1>
+        <input id="input" type="file" accept="image/*">
     </header>
     <main>
-      <article class="file">
-        <input id="input" type="file" accept="image/*">
-        <canvas id="canvas" width="1920" height="1080"></canvas>
-      </article>
+      <br>
       <article>
-      <input type="button" onclick="ChangeTheme('catppuccin')" value="Catppuccin">
-      <input type="button" onclick="ChangeTheme('gruvbox')" value="Gruvbox">
-      <input type="button" onclick="ChangeTheme('dracula')" value="Dracula">
-      <input type="button" onclick="ChangeTheme('nord')" value="Nord">
+        <section class="theme_options">
+          <button onclick="ChangeTheme('catppuccin')">Catppuccin</button>
+          <button onclick="ChangeTheme('gruvbox')">GruvBox</button>
+          <button onclick="ChangeTheme('dracula')">Dracula</button>
+          <button onclick="ChangeTheme('nord')">Nord</button>
+        </section>
+        <section>
+          <canvas id="canvas" width="1920" height="1080"></canvas>
+        </section>
+        <section>
+          <button onclick="Start()">Start</button>
+        </section>
       </article>
-      <hr>
-      <button onclick="Start()">Start</button>
     </main>
     <footer>
+      <p>Some info -_-</p>
     </footer>
     <script src="script.js"></script>
   </body>

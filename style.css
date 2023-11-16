@@ -1,0 +1,81 @@
+:root
+{
+  --text: #fbfefe;
+  --background: #050e10;
+}
+
+html,
+head,
+body
+{
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+
+  color: var(--text);
+  background-color: var(--background);
+}
+
+header
+{
+  display: flex;
+  justify-content: center;
+
+  background: var(--text);
+
+  padding: 2.5rem;
+  margin-inline:  15%;
+  border-radius: 0px 0px 5px 5px;
+}
+
+article
+{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+article section
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas
+{
+  height: 80vh;
+  border: solid var(--text) 2px;
+  border-radius: 5px;
+}
+
+button
+{
+  color: var(--background);
+  background: var(--text);
+
+  padding: .4rem;
+
+  border-style: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+footer
+{
+  display: flex;
+  justify-content: center;
+}
+
+.theme_options
+{
+  padding: 20px;
+}
+
+.theme_options > button
+{
+  margin-block-end: .7rem;
+  width: 50%;
+}
+
