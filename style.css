@@ -8,9 +8,9 @@ html,
 head,
 body
 {
-  font-size: 24px;
   margin: 0;
   padding: 0;
+  font-size: 24px;
 
   color: var(--text);
   background-color: var(--background);
@@ -21,10 +21,12 @@ header
   display: flex;
   justify-content: center;
 
-  background: var(--text);
+  background: var(--background);
+
 
   padding: 2.5rem;
   margin-inline:  15%;
+  border: dashed var(--text) 3px;
   border-radius: 0px 0px 5px 5px;
 }
 
@@ -61,6 +63,7 @@ button
 
   cursor: pointer;
 }
+
 
 footer
 {

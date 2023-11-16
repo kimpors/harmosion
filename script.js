@@ -1,5 +1,3 @@
-// import 'jquery';
-
 var themes = (function () {
     var json = null;
 
@@ -16,15 +14,15 @@ var themes = (function () {
     return json;
 })(); 
 
+var theme = themes.catppuccin; 
+var imagePalete;
+
 var bareImage = null;
-const input = document.getElementById('input');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d'); 
 const offset = 3;
 
-var theme = themes.catppuccin; 
-
-input.addEventListener('change', function(event)
+$("#input").on("change", function (event)
 {
   const file = event.target.files[0];
 
@@ -51,36 +49,43 @@ input.addEventListener('change', function(event)
   }
 });
 
-
-function ChangeTheme(name)
+$("button").on("click", function ()
 {
-  switch (name) {
-    case 'catppuccin':
-      theme = themes.catppuccin
+  switch ($( this ).attr("id")) {
+    case "start":
+      Start();
       break;
+
+    case 'reset':
+      Reset();
+      break;
+
+    case 'catppuccin':
+      theme = themes.catppuccin;
+      break;
+
     case 'gruvbox':
       theme = themes.gruvbox;
       break;
+
     case 'dracula':
       theme = themes.dracula;
       break;
+
     case 'nord':
       theme = themes.nord;
       break;
   }
-}
+});
 
-function Start()
+async function Start()
 {
   var image = context.getImageData(0, 0, canvas.width, canvas.height);
   var pixels = image.data;
 
-  var index = 0;
   var lengths = [];
 
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
-  for (var i = 0; i < pixels.length; i += 4)
+  for (var i = 0, min = 0; i < pixels.length; i += 4, min = 0)
   {
     for (var j = 0, k = 0; j < theme.length; j += 3, k++)
     {
@@ -89,24 +94,24 @@ function Start()
                     Math.pow(pixels[i + 1] - theme[j + 1], 2) +
                     Math.pow(pixels[i + 2] - theme[j + 2], 2));
 
-      if (lengths[index] > lengths[k])
+      if (lengths[min] > lengths[k])
       {
-        index = k;
+        min = k;
       }
     }
 
-    for (var j = 0; j < offset; j++)
-    {
-      pixels[i + j] = theme[index * offset + j];
-    }
-
-    index = 0;
+    pixels[i] = theme[min * offset];
+    pixels[i + 1] = theme[min * offset + 1];
+    pixels[i + 2] = theme[min * offset + 2];
   }
 
   context.putImageData(image, 0, 0);
 }
 
-function Reset() 
+async function Reset() 
 {
-  context.putImageData(bareImage, 0, 0);
+  if (bareImage)
+  {
+    context.putImageData(bareImage, 0, 0);
+  }
 }

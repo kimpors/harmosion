@@ -15,23 +15,20 @@
       <br>
       <article>
         <section class="options">
-          <button onclick="ChangeTheme('catppuccin')">Catppuccin</button>
-          <button onclick="ChangeTheme('gruvbox')">GruvBox</button>
-          <button onclick="ChangeTheme('dracula')">Dracula</button>
-          <button onclick="ChangeTheme('nord')">Nord</button>
+          <button id="catppuccin">Catppuccin</button>
+          <button id="gruvbox">GruvBox</button>
+          <button id="dracula">Dracula</button>
+          <button id="nord">Nord</button>
         </section>
         <section>
           <canvas id="canvas" width="1920" height="1080"></canvas>
         </section>
         <section class="options">
-          <button onclick="Start()">Start</button>
-          <button onclick="Reset()">Reset</button>
+          <button id="start" onclick="Start()">Start</button>
+          <button id="reset" onclick="Reset()">Reset</button>
         </section>
       </article>
     </main>
-    <footer>
-      <p>Some info -_-</p>
-    </footer>
     <script src="script.js"></script>
   </body>
 </html>
