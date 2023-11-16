@@ -68,14 +68,13 @@ footer
   justify-content: center;
 }
 
-.theme_options
+.options
 {
   padding: 20px;
 }
 
-.theme_options > button
+.options > button
 {
   margin-block-end: .7rem;
   width: 50%;
 }
-

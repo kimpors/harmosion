@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
   </head>
   <body>
     <header>
@@ -13,7 +14,7 @@
     <main>
       <br>
       <article>
-        <section class="theme_options">
+        <section class="options">
           <button onclick="ChangeTheme('catppuccin')">Catppuccin</button>
           <button onclick="ChangeTheme('gruvbox')">GruvBox</button>
           <button onclick="ChangeTheme('dracula')">Dracula</button>
@@ -22,7 +23,7 @@
         <section>
           <canvas id="canvas" width="1920" height="1080"></canvas>
         </section>
-        <section>
+        <section class="options">
           <button onclick="Start()">Start</button>
           <button onclick="Reset()">Reset</button>
         </section>
