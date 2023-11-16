@@ -1,3 +1,4 @@
+var bareImage = null;
 const input = document.getElementById('input');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d'); 
@@ -22,6 +23,7 @@ input.addEventListener('change', function(event)
         canvas.width = image.width;
         canvas.height = image.height;
         context.drawImage(image, 0, 0, image.width, image.height);
+        bareImage = context.getImageData(0, 0, canvas.width, canvas.height);
       };
 
       image.src = e.target.result;
@@ -30,6 +32,7 @@ input.addEventListener('change', function(event)
       reader.readAsDataURL(file);
   }
 });
+
 
 function ChangeTheme(name)
 {
@@ -146,4 +149,9 @@ function Start()
   }
 
   context.putImageData(image, 0, 0);
+}
+
+function Reset() 
+{
+  context.putImageData(bareImage, 0, 0);
 }
