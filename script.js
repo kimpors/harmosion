@@ -4,18 +4,16 @@ const themes = Themes();
 let theme = themes.catppuccin;
 let defaultImage = null;
 
-const dialog = document.getElementById("dialog");
-const options = document.getElementsByTagName("button");
-
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d'); 
 
+const options = document.getElementsByTagName("button");
 
-for(let i = 0; i < options.length; i++)
+for (const option of options)
 {
-  options[i].addEventListener("click", () =>
+  option.addEventListener("click", () =>
   {
-    switch(options[i].id)
+    switch(option.id)
     {
       case 'start':
         Start();
@@ -30,35 +28,27 @@ for(let i = 0; i < options.length; i++)
         break;
 
       case 'catppuccin':
-        theme = themes.catppuccin;
-        break;
-
       case 'gruvbox':
-        theme = themes.gruvbox;
-        break;
-
       case 'dracula':
-        theme = themes.dracula;
-        break;
-
       case 'nord':
-        theme = themes.nord;
+        theme = themes[option.id];
         break;
     }
-  })
+  });
 }
 
-dialog.addEventListener("change", (event) => 
+document.querySelector("#dialog").
+  addEventListener("change", (event => 
 {
   const file = event.target.files[0];
 
   if (file)
   {
-    var reader = new FileReader();
+    let reader = new FileReader();
 
     reader.onload = function (e) 
     {
-      var image = new Image();
+      let image = new Image();
 
       image.onload = function()
       {
@@ -73,36 +63,37 @@ dialog.addEventListener("change", (event) =>
     };
       reader.readAsDataURL(file);
   }
-});
+}));
 
 function Start()
 {
   let image = context.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = image.data;
-  let offset = 3;
+  let buf = -1;
+  let min = 0;
 
-  let lengths = [];
-
-  for (let i = 0, min = 0; i < pixels.length; i += 4)
+  for (let i = 0; i < pixels.length; i += 4)
   {
     min = 0;
+    buf = -1;
 
-    for (let j = 0, k = 0; j < theme.length; j += 3, k++)
+    for (let j = 0; j < theme.length; j += 3)
     {
-      lengths[k] = Math.sqrt(
+      let temp = Math.sqrt(
                     Math.pow(pixels[i] - theme[j], 2) +
                     Math.pow(pixels[i + 1] - theme[j + 1], 2) +
                     Math.pow(pixels[i + 2] - theme[j + 2], 2));
 
-      if (lengths[min] > lengths[k])
+      if (buf == -1 || buf > temp)
       {
-        min = k;
+        min = j;
+        buf = temp;
       }
     }
 
-    pixels[i] = theme[min * offset];
-    pixels[i + 1] = theme[min * offset + 1];
-    pixels[i + 2] = theme[min * offset + 2];
+    pixels[i] = theme[min];
+    pixels[i + 1] = theme[min + 1];
+    pixels[i + 2] = theme[min + 2];
   }
 
   context.putImageData(image, 0, 0);

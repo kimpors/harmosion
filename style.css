@@ -72,6 +72,11 @@ button:hover
 
 }
 
+button:active
+{
+  background-color: gray;
+}
+
 footer
 {
   display: flex;
