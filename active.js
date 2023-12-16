@@ -1,22 +1,22 @@
-const options = document.getElementById("themes").children;
+const themes = document.querySelector(".themes").children;
 
 let prev = 'catppuccin';
-options.namedItem("catppuccin").classList.add("active");
+themes.namedItem(prev).classList.add("active");
 
-for(let i = 0; i < options.length; i++)
+for (const theme of themes) 
 {
-  options[i].addEventListener("click", () =>
+  theme.addEventListener("click", () =>
   {
-      switch (options[i].id) 
-      {
-        case "catppuccin":
-        case "gruvbox":
-        case "dracula":
-        case "nord":
-          options.namedItem(prev).classList.remove("active");
-          options.namedItem(options[i].id).classList.add("active");
-          prev = options[i].id;
-          break;
-      }
-  })
+    switch (theme.id) 
+    {
+      case "catppuccin":
+      case "gruvbox":
+      case "dracula":
+      case "nord":
+        themes.namedItem(prev).classList.remove("active");
+        themes.namedItem(theme.id).classList.add("active");
+        prev = theme.id;
+        break;
+    }
+  });
 }

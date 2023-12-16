@@ -17,7 +17,10 @@ for (const option of options)
     switch(option.id)
     {
       case 'start':
-        worker.postMessage([theme, context.getImageData(0, 0, canvas.width, canvas.height).data]);
+        if (defaultImage)
+        {
+          worker.postMessage([theme, context.getImageData(0, 0, canvas.width, canvas.height).data]);
+        }
         break;
 
       case 'download':
@@ -36,6 +39,12 @@ for (const option of options)
         break;
     }
   });
+}
+
+worker.onmessage = function (pixels) 
+{
+  context.putImageData(
+    new ImageData(pixels.data, canvas.width, canvas.height), 0, 0);
 }
 
 document.querySelector("#dialog").
@@ -66,11 +75,6 @@ document.querySelector("#dialog").
   }
 }));
 
-worker.onmessage = function (pixels) 
-{
-  context.putImageData(
-    new ImageData(pixels.data, canvas.width, canvas.height), 0, 0);
-}
 
 function Download()
 {
