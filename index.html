@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="style.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
   </head>
   <body>
     <header>
-        <input id="input" type="file" accept="image/*">
+      <input id="dialog" type="file" accept="image/*">
     </header>
     <main>
       <br>
       <article>
-        <section class="options">
+        <section id="themes" class="options">
           <button id="catppuccin">Catppuccin</button>
           <button id="gruvbox">GruvBox</button>
           <button id="dracula">Dracula</button>
@@ -24,11 +23,12 @@
           <canvas id="canvas" width="1920" height="1080"></canvas>
         </section>
         <section class="options">
-          <button id="start" onclick="Start()">Start</button>
-          <button id="reset" onclick="Reset()">Reset</button>
+          <button id="start">Start</button>
+          <button id="reset">Reset</button>
         </section>
       </article>
     </main>
-    <script src="script.js"></script>
+    <script src="active.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

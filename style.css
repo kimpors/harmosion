@@ -20,7 +20,6 @@ header
 {
   display: flex;
   justify-content: center;
-
   background: var(--background);
 
 
@@ -28,6 +27,8 @@ header
   margin-inline:  15%;
   border: dashed var(--text) 3px;
   border-radius: 0px 0px 5px 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 article
@@ -59,11 +60,17 @@ button
   padding: .4rem;
 
   border-style: none;
-  border-radius: 5px;
+  border-radius: 3px;
 
   cursor: pointer;
+  transition: 200ms;
 }
 
+button:hover
+{
+  padding: .8rem;
+
+}
 
 footer
 {
@@ -76,8 +83,23 @@ footer
   padding: 20px;
 }
 
+.options > button:first-child
+{
+  border-radius: 10px 10px 0px 0px;
+}
+
+.options > button:last-child
+{
+  border-radius: 0px 0px 10px 10px;
+}
+
 .options > button
 {
   margin-block-end: .7rem;
   width: 50%;
+}
+
+.active
+{
+  background-color: gray;
 }

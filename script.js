@@ -1,28 +1,50 @@
-var themes = (function () {
-    var json = null;
+import Themes from './themes.js';
 
-    $.ajax({
-        'async': false,
-        'global': false,
-        'url': 'themes.json',
-        'dataType': "json",
-        'success': function (data) {
-            json = data;
-        }
-    });
+const themes = Themes();
+let theme = themes.catppuccin;
+let defaultImage = null;
 
-    return json;
-})(); 
+const dialog = document.getElementById("dialog");
+const options = document.getElementsByTagName("button");
 
-var theme = themes.catppuccin; 
-var imagePalete;
-
-var bareImage = null;
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d'); 
-const offset = 3;
 
-$("#input").on("change", function (event)
+
+for(let i = 0; i < options.length; i++)
+{
+  options[i].addEventListener("click", () =>
+  {
+    switch(options[i].id)
+    {
+      case 'start':
+        Start();
+        break;
+
+      case 'reset':
+        Reset();
+        break;
+
+      case 'catppuccin':
+        theme = themes.catppuccin;
+        break;
+
+      case 'gruvbox':
+        theme = themes.gruvbox;
+        break;
+
+      case 'dracula':
+        theme = themes.dracula;
+        break;
+
+      case 'nord':
+        theme = themes.nord;
+        break;
+    }
+  })
+}
+
+dialog.addEventListener("change", (event) => 
 {
   const file = event.target.files[0];
 
@@ -39,7 +61,7 @@ $("#input").on("change", function (event)
         canvas.width = image.width;
         canvas.height = image.height;
         context.drawImage(image, 0, 0, image.width, image.height);
-        bareImage = context.getImageData(0, 0, canvas.width, canvas.height);
+        defaultImage = context.getImageData(0, 0, canvas.width, canvas.height);
       };
 
       image.src = e.target.result;
@@ -49,45 +71,19 @@ $("#input").on("change", function (event)
   }
 });
 
-$("button").on("click", function ()
+function Start()
 {
-  switch ($( this ).attr("id")) {
-    case "start":
-      Start();
-      break;
+  let image = context.getImageData(0, 0, canvas.width, canvas.height);
+  let pixels = image.data;
+  let offset = 3;
 
-    case 'reset':
-      Reset();
-      break;
+  let lengths = [];
 
-    case 'catppuccin':
-      theme = themes.catppuccin;
-      break;
-
-    case 'gruvbox':
-      theme = themes.gruvbox;
-      break;
-
-    case 'dracula':
-      theme = themes.dracula;
-      break;
-
-    case 'nord':
-      theme = themes.nord;
-      break;
-  }
-});
-
-async function Start()
-{
-  var image = context.getImageData(0, 0, canvas.width, canvas.height);
-  var pixels = image.data;
-
-  var lengths = [];
-
-  for (var i = 0, min = 0; i < pixels.length; i += 4, min = 0)
+  for (let i = 0, min = 0; i < pixels.length; i += 4)
   {
-    for (var j = 0, k = 0; j < theme.length; j += 3, k++)
+    min = 0;
+
+    for (let j = 0, k = 0; j < theme.length; j += 3, k++)
     {
       lengths[k] = Math.sqrt(
                     Math.pow(pixels[i] - theme[j], 2) +
@@ -106,12 +102,12 @@ async function Start()
   }
 
   context.putImageData(image, 0, 0);
-}
+};
 
-async function Reset() 
+function Reset()
 {
-  if (bareImage)
+  if (defaultImage)
   {
-    context.putImageData(bareImage, 0, 0);
+    context.putImageData(defaultImage, 0, 0);
   }
-}
+};
