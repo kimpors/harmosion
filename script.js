@@ -21,6 +21,10 @@ for(let i = 0; i < options.length; i++)
         Start();
         break;
 
+      case 'download':
+        Download();
+        break;
+
       case 'reset':
         Reset();
         break;
@@ -103,6 +107,14 @@ function Start()
 
   context.putImageData(image, 0, 0);
 };
+
+function Download()
+{
+  let a = document.createElement('a');
+  a.href = canvas.toDataURL("image/png");
+  a.download = 'image.png';
+  a.click();
+}
 
 function Reset()
 {
