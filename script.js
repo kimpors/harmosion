@@ -8,6 +8,8 @@ const worker = new Worker('worker.js');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d'); 
 
+const dialog = document.getElementById("dialog");
+const downloadLink = document.getElementById("download-link");
 const options = document.getElementsByTagName("button");
 
 for (const option of options)
@@ -16,19 +18,27 @@ for (const option of options)
   {
     switch(option.id)
     {
-      case 'start':
+      case 'generate':
         if (defaultImage)
         {
           worker.postMessage([theme, context.getImageData(0, 0, canvas.width, canvas.height).data]);
         }
         break;
 
+      case 'upload':
+        dialog.click();
+        break;
+
       case 'download':
-        Download();
+        downloadLink.href = canvas.toDataURL("image/png"); 
+        downloadLink.click();
         break;
 
       case 'reset':
-        Reset();
+        if (defaultImage)
+        {
+          context.putImageData(defaultImage, 0, 0);
+        }
         break;
 
       case 'catppuccin':
@@ -47,47 +57,24 @@ worker.onmessage = function (pixels)
     new ImageData(pixels.data, canvas.width, canvas.height), 0, 0);
 }
 
-document.querySelector("#dialog").
-  addEventListener("change", (event => 
+dialog.addEventListener("change", () =>
 {
-  const file = event.target.files[0];
+  let reader = new FileReader();
 
-  if (file)
+  reader.addEventListener('load', (event) =>
   {
-    let reader = new FileReader();
+    let image = new Image();
 
-    reader.onload = function (e) 
+    image.addEventListener("load", () =>
     {
-      let image = new Image();
+      canvas.width = image.width;
+      canvas.height = image.height;
+      context.drawImage(image, 0, 0, image.width, image.height);
+      defaultImage = context.getImageData(0, 0, canvas.width, canvas.height);
+    });
 
-      image.onload = function()
-      {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        context.drawImage(image, 0, 0, image.width, image.height);
-        defaultImage = context.getImageData(0, 0, canvas.width, canvas.height);
-      };
+    image.src = event.target.result;
+  });
 
-      image.src = e.target.result;
-
-    };
-      reader.readAsDataURL(file);
-  }
-}));
-
-
-function Download()
-{
-  let a = document.createElement('a');
-  a.href = canvas.toDataURL("image/png");
-  a.download = 'image.png';
-  a.click();
-}
-
-function Reset()
-{
-  if (defaultImage)
-  {
-    context.putImageData(defaultImage, 0, 0);
-  }
-};
+    reader.readAsDataURL(dialog.files[0]);
+});

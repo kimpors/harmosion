@@ -10,22 +10,21 @@ html,
 head,
 body
 {
-  margin: 0;
-  padding: 0;
+  color: var(--text);
+  background-color: var(--background);
   font-size: 24px;
   font-family: 'Space Mono', monospace;
 
-  color: var(--text);
-  background-color: var(--background);
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 main 
 {
+  height: 100%;
   display: grid;
-
-  grid-template-columns: 1fr 3fr 1fr;
   grid-template-areas:
-    "header header header" 
     "themes image options";
 
   gap: .5rem 0;
@@ -33,39 +32,46 @@ main
   justify-items: center;
 }
 
-header
-{
-  grid-area: header;
-  display: flex;
-  background: var(--background);
-
-
-  padding: 2.5rem;
-  margin-inline:  15%;
-  border: dashed var(--primary) 3px;
-  border-radius: 0px 0px 5px 5px;
-  justify-content: center;
-  align-items: center;
-}
-
-article
+canvas
 {
   grid-area: image;
+  height: 80vh;
+  border: solid var(--primary) 2px;
+  border-radius: 5px;
+}
+
+button
+{
+  color: var(--background);
+  background: var(--primary);
+
+  font-size: .8rem;
+  font-family: 'Space Mono', monospace;
+
+  padding: .4rem;
+
+  border-style: none;
+  border-radius: 3px;
+
+  cursor: pointer;
+  transition: 225ms;
+}
+
+button:hover
+{
+  font-size: 1rem;
 }
 
 .options
 {
   grid-area: options;
+  display: flex;
+  flex-direction: column;
 }
 
 .themes
 {
   grid-area: themes;
-}
-
-.themes,
-.options
-{
   display: flex;
   flex-direction: column;
 }
@@ -97,36 +103,17 @@ article
   background-color: var(--active);
 }
 
-canvas
-{
-  height: 80vh;
-  border: solid var(--primary) 2px;
-  border-radius: 5px;
-}
-
-button
-{
-  color: var(--background);
-  background: var(--primary);
-
-  font-size: .8rem;
-  font-family: 'Space Mono', monospace;
-
-  padding: .4rem;
-
-  border-style: none;
-  border-radius: 3px;
-
-  cursor: pointer;
-  transition: 225ms;
-}
-
-button:hover
-{
-  font-size: 1rem;
-}
-
 .active
 {
   background-color: var(--active);
+}
+
+#dialog
+{
+  display: none;
+}
+
+#download-link
+{
+  display: none;
 }

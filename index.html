@@ -12,6 +12,7 @@
   <body>
     <header>
       <input id="dialog" type="file" accept="image/*">
+      <a id="download-link" download="image.png"></a>
     </header>
     <main>
       <article class="themes buttons">
@@ -20,11 +21,10 @@
         <button id="dracula">Dracula</button>
         <button id="nord">Nord</button>
       </article>
-      <article>
-        <canvas id="canvas" width="1920" height="1080"></canvas>
-      </article>
+      <canvas id="canvas" width="1920" height="1080"></canvas>
       <article class="options buttons">
-        <button id="start">Start</button>
+        <button id="upload" for="dialog">Upload</button>
+        <button id="generate">Generate</button>
         <button id="download">Download</button>
         <button id="reset">Reset</button>
       </article>
