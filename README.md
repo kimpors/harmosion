@@ -9,14 +9,6 @@ with colors, this web app provides an intuitive interface for
 transforming image palettes with ease. Currently it's have    
 support only for predefined color palletes.
 
-## How to Use
-
-1. Upload Image. Using file borwser dialog in top screen.
-2. Color Pallete. Choose your prefered colorscheme.
-3. Generating Image. Click `Start`.
-4. To your choise. Click `Download` or `Reset`.
-
-
 ## Contributing
 
 Contributions are welcome! If you have any suggestions,    
