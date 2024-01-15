@@ -34,6 +34,8 @@ main
 
 canvas
 {
+  width: 100%;
+  min-width: 500px;
   grid-area: image;
   height: 80vh;
   border: solid var(--primary) 2px;
